@@ -4,22 +4,30 @@ document.getElementById('year').textContent = new Date().getFullYear();
 // Main application initialization
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize theme from localStorage
-    initTheme();
+    if (typeof initTheme === 'function') {
+        initTheme();
+    }
     
     // Setup theme toggle functionality
-    setupThemeToggle();
+    if (typeof setupThemeToggle === 'function') {
+        setupThemeToggle();
+    }
     
     // Add scroll to top button
-    addScrollToTopButton();
-    const links = document.querySelectorAll('.link');
+    if (typeof addScrollToTopButton === 'function') {
+        addScrollToTopButton();
+    }
     
+    // Animate links
+    const links = document.querySelectorAll('.link');
     links.forEach((link, index) => {
-        // Set animation delay based on index
         link.style.animationDelay = `${(index + 1) * 0.1}s`;
     });
 
     // Initialize animations for page elements
-    initializeAnimations();
+    if (typeof initializeAnimations === 'function') {
+        initializeAnimations();
+    }
     
     // Booking form functionality
     const bookingLink = document.getElementById('booking-link');
@@ -29,60 +37,114 @@ document.addEventListener('DOMContentLoaded', () => {
     const formSuccess = document.getElementById('form-success');
     const closeSuccessBtn = document.getElementById('close-success');
     
-    // Set minimum date for date picker (today)
+    // Initialize date and time inputs if they exist
     const dateInput = document.getElementById('date');
-    const today = new Date().toISOString().split('T')[0];
-    dateInput.setAttribute('min', today);
+    const timeInput = document.getElementById('time');
     
-    // Add form validation
-    setupFormValidation();
+    if (dateInput) {
+        // Set minimum date for date picker (today)
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1); // Set minimum to tomorrow
+        const tomorrowFormatted = tomorrow.toISOString().split('T')[0];
+        dateInput.setAttribute('min', tomorrowFormatted);
+        
+        // Set default time to next available hour
+        if (timeInput) {
+            const nextHour = today.getHours() + 1;
+            const formattedHour = nextHour.toString().padStart(2, '0') + ':00';
+            timeInput.min = '09:00';
+            timeInput.max = '18:00';
+            timeInput.value = formattedHour;
+        }
+    }
+    
+    // Add form validation if form exists
+    if (consultationForm) {
+        setupFormValidation();
+    }
 
     // Show booking form with smooth animation when clicking the booking link
-    bookingLink.addEventListener('click', (e) => {
-        e.preventDefault();
+    if (bookingLink) {
+        // Immediately check if the booking-link was clicked (for direct link access)
+        if (window.location.hash === '#booking') {
+            showBookingForm();
+        }
+        
+        // Add click event listener
+        bookingLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            showBookingForm();
+        });
+    }
+    
+    // Function to show the booking form
+    function showBookingForm() {
+        console.log('Showing booking form...');
         
         // Hide success message if it's visible
-        formSuccess.classList.add('hidden');
+        if (formSuccess) {
+            formSuccess.classList.add('hidden');
+        }
         
         // Show the form
-        bookingForm.classList.remove('hidden');
-        bookingForm.style.opacity = '0';
-        bookingForm.style.transform = 'translateY(20px)';
-        
-        // Scroll to the form
-        bookingForm.scrollIntoView({ behavior: 'smooth' });
-        
-        // Animate form entrance
-        setTimeout(() => {
-            bookingForm.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-            bookingForm.style.opacity = '1';
-            bookingForm.style.transform = 'translateY(0)';
-        }, 50);
-    });
+        if (bookingForm) {
+            console.log('Booking form found, removing hidden class');
+            bookingForm.classList.remove('hidden');
+            bookingForm.style.display = 'block';
+            bookingForm.style.opacity = '0';
+            bookingForm.style.transform = 'translateY(20px)';
+            
+            // Scroll to the form
+            bookingForm.scrollIntoView({ behavior: 'smooth' });
+            
+            // Animate form entrance
+            setTimeout(() => {
+                console.log('Animating booking form');
+                bookingForm.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                bookingForm.style.opacity = '1';
+                bookingForm.style.transform = 'translateY(0)';
+            }, 50);
+        } else {
+            console.error('Booking form element not found!');
+        }
+    }
 
     // Hide booking form when clicking cancel
-    cancelButton.addEventListener('click', () => {
-        bookingForm.style.opacity = '0';
-        bookingForm.style.transform = 'translateY(20px)';
-        
-        setTimeout(() => {
-            bookingForm.classList.add('hidden');
-            consultationForm.reset();
-        }, 400);
-    });
+    if (cancelButton) {
+        cancelButton.addEventListener('click', () => {
+            if (bookingForm) {
+                bookingForm.style.opacity = '0';
+                bookingForm.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    bookingForm.classList.add('hidden');
+                    if (consultationForm) {
+                        consultationForm.reset();
+                    }
+                }, 400);
+            }
+        });
+    }
     
     // Close success message
-    closeSuccessBtn.addEventListener('click', () => {
-        formSuccess.style.opacity = '0';
-        formSuccess.style.transform = 'scale(0.95)';
-        
-        setTimeout(() => {
-            formSuccess.classList.add('hidden');
-            bookingForm.classList.add('hidden');
-            formSuccess.style.opacity = '1';
-            formSuccess.style.transform = 'scale(1)';
-        }, 300);
-    });
+    if (closeSuccessBtn) {
+        closeSuccessBtn.addEventListener('click', () => {
+            if (formSuccess) {
+                formSuccess.style.opacity = '0';
+                formSuccess.style.transform = 'scale(0.95)';
+                
+                setTimeout(() => {
+                    formSuccess.classList.add('hidden');
+                    if (bookingForm) {
+                        bookingForm.classList.add('hidden');
+                    }
+                    formSuccess.style.opacity = '1';
+                    formSuccess.style.transform = 'scale(1)';
+                }, 300);
+            }
+        });
+    }
 
     // Validate form fields
     const validateForm = () => {
@@ -106,49 +168,94 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Handle form submission
-    consultationForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        if (!validateForm()) {
-            return;
-        }
-        
-        // Get form data
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const date = document.getElementById('date').value;
-        const time = document.getElementById('time').value;
-        const service = document.getElementById('service').value;
-        const message = document.getElementById('message').value;
-        
-        // In a real application, you would send this data to a server
-        // For demo purposes, we'll just show a success message
-        
-        // Show loading state
-        const submitBtn = consultationForm.querySelector('.submit-btn');
-        const originalBtnText = submitBtn.innerHTML;
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-        submitBtn.disabled = true;
-        
-        // Simulate API call
+    if (consultationForm) {
+        consultationForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Validate form
+            if (!validateForm()) {
+                // Scroll to first error if validation fails
+                const firstError = consultationForm.querySelector('.error');
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    firstError.focus();
+                }
+                return;
+            }
+            
+            const submitBtn = consultationForm.querySelector('.submit-btn');
+            if (!submitBtn) return;
+            
+            const originalBtnText = submitBtn.innerHTML;
+            
+            try {
+                // Show loading state
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                
+                // Get form data
+                const formData = new FormData(consultationForm);
+                const formProps = Object.fromEntries(formData);
+                
+                // Simulate API call (replace with actual API call)
+                const response = await new Promise((resolve) => {
+                    setTimeout(() => {
+                        console.log('Form submitted:', formProps);
+                        resolve({ success: true, message: 'Booking request received' });
+                    }, 1500);
+                });
+                
+                if (response.success) {
+                    // Hide form and show success message
+                    if (consultationForm) {
+                        consultationForm.reset();
+                    }
+                    
+                    if (bookingForm) {
+                        bookingForm.style.display = 'none';
+                    }
+                    
+                    if (formSuccess) {
+                        formSuccess.classList.remove('hidden');
+                        formSuccess.style.display = 'block';
+                        formSuccess.style.opacity = '0';
+                        formSuccess.style.transform = 'scale(0.95)';
+                        
+                        // Trigger reflow
+                        void formSuccess.offsetWidth;
+                        
+                        // Animate success message
+                        setTimeout(() => {
+                            formSuccess.style.opacity = '1';
+                            formSuccess.style.transform = 'scale(1)';
+                        }, 50);
+                        
+                        // Scroll to success message
+                        formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                } else {
+                    throw new Error('Failed to submit form');
+                }
+            } catch (error) {
+                console.error('Form submission error:', error);
+                alert('There was an error submitting your booking. Please try again.');
+            } finally {
+                // Reset button state
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnText;
+                }
+            }
+        });
+    }
+});
+
+// Simulate API call (replace with actual API call)
+function simulateApiCall(formData) {
+    return new Promise((resolve) => {
         setTimeout(() => {
-            // Reset button
-            submitBtn.innerHTML = originalBtnText;
-            submitBtn.disabled = false;
-            
-            // Show success message
-            formSuccess.classList.remove('hidden');
-            formSuccess.style.opacity = '0';
-            formSuccess.style.transform = 'scale(0.95)';
-            
-            setTimeout(() => {
-                formSuccess.style.transition = 'all 0.3s ease';
-                formSuccess.style.opacity = '1';
-                formSuccess.style.transform = 'scale(1)';
-            }, 10);
-            
-            // Reset form
-            consultationForm.reset();
+            console.log('Form submitted:', formData);
+            resolve({ success: true, message: 'Booking request received' });
         }, 1500);
     });
-});
+}

@@ -93,10 +93,10 @@
                 <span class="subtitle">$MoneySavant</span>
             </a>
 
-            <a href="#" class="link booking" id="booking-link">
+            <a href="#booking" class="link booking pre-animation animate-in" id="booking-link">
                 <i class="fas fa-calendar-alt"></i>
                 <span>Book a Consultation</span>
-                <span class="subtitle">Fashion & Business Advice</span>
+                <span class="subtitle">Fashion &amp; Business Advice</span>
             </a>
         </div>
 
@@ -248,8 +248,45 @@
         <div class="instagram-section">
             <h2>@k.o._savant <i class="fab fa-instagram"></i></h2>
             <div class="instagram-feed">
-                <!-- Direct RSS App Widget Implementation -->
-                <rssapp-wall id="Ufg4OYRpC9uMbxjy"></rssapp-wall>
+                <!-- Static Instagram Feed Display -->
+                <div class="instagram-grid">
+                    <div class="instagram-item">
+                        <a href="https://www.instagram.com/k.o._savant" target="_blank">
+                            <img src="images/instagram/insta1.jpg" alt="KO Savant Instagram">
+                        </a>
+                    </div>
+                    <div class="instagram-item">
+                        <a href="https://www.instagram.com/k.o._savant" target="_blank">
+                            <img src="images/instagram/insta2.jpg" alt="KO Savant Instagram">
+                        </a>
+                    </div>
+                    <div class="instagram-item">
+                        <a href="https://www.instagram.com/k.o._savant" target="_blank">
+                            <img src="images/instagram/insta3.jpg" alt="KO Savant Instagram">
+                        </a>
+                    </div>
+                    <div class="instagram-item">
+                        <a href="https://www.instagram.com/k.o._savant" target="_blank">
+                            <img src="images/instagram/insta4.jpg" alt="KO Savant Instagram">
+                        </a>
+                    </div>
+                    <div class="instagram-item">
+                        <a href="https://www.instagram.com/k.o._savant" target="_blank">
+                            <img src="images/instagram/insta5.jpg" alt="KO Savant Instagram">
+                        </a>
+                    </div>
+                    <div class="instagram-item">
+                        <a href="https://www.instagram.com/k.o._savant" target="_blank">
+                            <img src="images/instagram/insta6.jpg" alt="KO Savant Instagram">
+                        </a>
+                    </div>
+                </div>
+                <div id="instagram-loading" class="instagram-loading">
+                    <p><i class="fas fa-spinner fa-spin"></i> Loading Instagram feed...</p>
+                </div>
+                <div id="instagram-error" class="instagram-error hidden">
+                    <p>Unable to load Instagram feed. Please <a href="https://www.instagram.com/k.o._savant" target="_blank">visit our Instagram page</a> instead.</p>
+                </div>
             </div>
             <a href="https://www.instagram.com/k.o._savant" class="instagram-follow-btn" target="_blank">
                 Follow on Instagram
@@ -261,8 +298,12 @@
         </footer>
     </div>
 
+    <!-- RSS App Script for Instagram Feed -->
+    <script src="https://widget.rssapp.io/v1/wall.js" type="text/javascript"></script>
     <script src="script.js"></script>
     <script src="enhancements.js"></script>
     <script src="instagram-feed.js"></script>
+    <script src="instagram-fallback.js"></script>
+    <script src="booking.js"></script>
 </body>
 </html>
