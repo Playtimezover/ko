@@ -125,12 +125,14 @@ document.addEventListener('DOMContentLoaded', function() {
         return isValid;
     }
 
-    // Handle form submission validation only - actual submission is handled by FormSubmit.co
+    // Handle form validation before submission to FormSubmit.co
     if (consultationForm) {
         consultationForm.addEventListener('submit', function(e) {
+            // Validate form before submission
             if (!validateForm()) {
-                e.preventDefault(); // Only prevent default if validation fails
-                // Scroll to first error
+                e.preventDefault(); // Prevent form submission if validation fails
+                
+                // Scroll to first error field
                 const firstError = consultationForm.querySelector('.error');
                 if (firstError) {
                     firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -146,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             // Let the form submit naturally to FormSubmit.co
-            // The form will redirect to thank-you.html after submission
+            // FormSubmit will handle the email delivery and redirect to thank-you.html
         });
     }
 });
