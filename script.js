@@ -125,55 +125,28 @@ document.addEventListener('DOMContentLoaded', function() {
         return isValid;
     }
 
-    // Handle form submission
+    // Handle form submission validation only - actual submission is handled by FormSubmit.co
     if (consultationForm) {
         consultationForm.addEventListener('submit', function(e) {
-            e.preventDefault();
             if (!validateForm()) {
+                e.preventDefault(); // Only prevent default if validation fails
+                // Scroll to first error
+                const firstError = consultationForm.querySelector('.error');
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
                 return;
             }
             
+            // Form is valid, show loading state on button
             const submitBtn = consultationForm.querySelector('button[type="submit"]');
             if (submitBtn) {
-                // Change button text to show loading state
-                const originalButtonText = submitBtn.innerHTML;
-                submitBtn.disabled = true;
                 submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-                
-                // Direct EmailJS implementation
-                const serviceID = 'service_5dku7y9';
-                const templateID = 'template_0xdvlwm';
-                
-                // Prepare template parameters from form data
-                const templateParams = {
-                    name: document.getElementById('name').value,
-                    email: document.getElementById('email').value,
-                    date: document.getElementById('date').value,
-                    time: document.getElementById('time').value,
-                    service: document.getElementById('service').value,
-                    message: document.getElementById('message').value || 'No additional message',
-                    to_email: 'contact@kosavant.com'
-                };
-                
-                // Send the email directly with EmailJS
-                emailjs.send(serviceID, templateID, templateParams)
-                    .then(function(response) {
-                        console.log('SUCCESS!', response.status, response.text);
-                        // Show success message and hide form
-                        if (formSuccess) formSuccess.classList.remove('hidden');
-                        if (bookingForm) bookingForm.classList.add('hidden');
-                        consultationForm.reset();
-                    })
-                    .catch(function(error) {
-                        console.error('FAILED...', error);
-                        alert('There was an error submitting your booking. Please try again or contact us directly at contact@kosavant.com');
-                    })
-                    .finally(function() {
-                        // Restore button state
-                        submitBtn.disabled = false;
-                        submitBtn.innerHTML = originalButtonText;
-                    });
+                submitBtn.disabled = true;
             }
+            
+            // Let the form submit naturally to FormSubmit.co
+            // The form will redirect to thank-you.html after submission
         });
     }
 });

@@ -30,14 +30,8 @@
     <script src="https://kit.fontawesome.com/3b161c540c.js" crossorigin="anonymous"></script>
     <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
     
-    <!-- EmailJS for Form Submission -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script type="text/javascript">
-        (function() {
-            // EmailJS initialization
-            emailjs.init('nOl9RTXY9KPHkOyLyTyH3');
-        })();
-    </script>
+    <!-- No external email service required - using formsubmit.co -->
+    <!-- This is a more reliable approach that doesn't require API keys -->
     
     <!-- Instagram Feed Widget -->
     <script src="https://widget.rss.app/v1/wall.js" type="text/javascript" async></script>
@@ -114,7 +108,13 @@
                 <h2><i class="fas fa-calendar-check"></i> Book a Consultation</h2>
                 <p class="booking-subtitle">Schedule a one-on-one session with KO Savant</p>
             </div>
-            <form id="consultation-form">
+            <form id="consultation-form" action="https://formsubmit.co/Nz4OYUg6QkPsAQ_E8" method="POST">
+                <!-- FormSubmit.co Configuration -->
+                <input type="hidden" name="_subject" value="New Booking Request from KO Link Website">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_next" value="https://kosavant.com/thank-you.html">
+                <input type="hidden" name="_captcha" value="false">
+                
                 <div class="form-row">
                     <div class="form-group">
                         <label for="name"><i class="fas fa-user"></i> Full Name</label>
@@ -141,10 +141,10 @@
                     <label for="service"><i class="fas fa-tag"></i> Service Type</label>
                     <select id="service" name="service" required>
                         <option value="" disabled selected>Select a service</option>
-                        <option value="fashion">Fashion Consultation</option>
-                        <option value="business">Business Advice</option>
-                        <option value="branding">Personal Branding</option>
-                        <option value="other">Other</option>
+                        <option value="Fashion Consultation">Fashion Consultation</option>
+                        <option value="Business Advice">Business Advice</option>
+                        <option value="Personal Branding">Personal Branding</option>
+                        <option value="Other">Other</option>
                     </select>
                 </div>
                 
