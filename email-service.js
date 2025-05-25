@@ -4,14 +4,16 @@
 // Initialize EmailJS
 (function() {
     // Public Key from EmailJS account
-    emailjs.init("nOl9RTXY9KPHkOyLyTyH3");
+    emailjs.init({
+      publicKey: "nOl9RTXY9KPHkOyLyTyH3",
+    });
 })();
 
 // Function to send email when booking is made
 function sendBookingEmail(formData) {
     return emailjs.send(
         "service_5dku7y9", // Service ID from EmailJS
-        "MZh0_bMAxSM6i3-Nx", // Template ID from EmailJS
+        "template_0xdvlwm", // Template ID from EmailJS
         {
             name: formData.name,
             email: formData.email,
@@ -20,7 +22,8 @@ function sendBookingEmail(formData) {
             service: formData.service,
             message: formData.message || "No additional message",
             to_email: "contact@kosavant.com"
-        }
+        },
+        "nOl9RTXY9KPHkOyLyTyH3" // Public Key
     );
 }
 
