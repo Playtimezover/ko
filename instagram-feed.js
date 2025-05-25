@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Get the loading indicator and error message elements
     const loadingElement = document.getElementById('instagram-loading');
     const errorElement = document.getElementById('instagram-error');
-    const rssappWall = document.querySelector('rssapp-wall');
+    const rssWallElement = document.querySelector('rssapp-wall');
     
     // Function to check if RSS App is loaded
     function checkRssAppLoaded() {
@@ -78,6 +78,25 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('RSS App loaded successfully!');
         
         try {
+            // Add mobile-optimized attribute to RSS Wall if on mobile
+            if (rssWallElement && window.innerWidth <= 768) {
+                rssWallElement.setAttribute('data-mobile-optimized', 'true');
+                
+                // Add event listener for window resize
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth <= 480) {
+                        rssWallElement.setAttribute('data-layout', 'list');
+                    } else {
+                        rssWallElement.setAttribute('data-layout', 'grid');
+                    }
+                });
+                
+                // Set initial layout based on screen size
+                if (window.innerWidth <= 480) {
+                    rssWallElement.setAttribute('data-layout', 'list');
+                }
+            }
+            
             // Hide loading indicator
             if (loadingElement) {
                 loadingElement.classList.add('hidden');
@@ -86,25 +105,6 @@ document.addEventListener('DOMContentLoaded', function() {
             // Hide error message
             if (errorElement) {
                 errorElement.classList.add('hidden');
-            }
-            
-            // Mark as loaded for CSS transitions
-            if (rssappWall) {
-                // Use MutationObserver to detect when content is loaded
-                const observer = new MutationObserver(function(mutations) {
-                    const hasContent = rssappWall.querySelector('.ra-post');
-                    if (hasContent) {
-                        rssappWall.classList.add('loaded');
-                        observer.disconnect();
-                    }
-                });
-                
-                observer.observe(rssappWall, { childList: true, subtree: true });
-                
-                // Fallback - add loaded class after a timeout
-                setTimeout(function() {
-                    rssappWall.classList.add('loaded');
-                }, 3000);
             }
         } catch (error) {
             console.error('Error initializing Instagram feed:', error);

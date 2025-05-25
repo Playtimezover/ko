@@ -19,15 +19,9 @@ git push origin main                    </div>
         <div class="instagram-section">
             <h2>@k.o._savant <i class="fab fa-instagram"></i></h2>
             <div class="instagram-feed">
-                <!-- RSS App Iframe Embed -->
-                <div style="position: relative; width: 100%; padding-top: 177.78%; /* Aspect ratio: 1600/900 * 100 */">
-                    <iframe 
-                        src="https://rss.app/embed/v1/feed/HgUaLbOAq0euMqEn" 
-                        frameborder="0" 
-                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;">
-                    </iframe>
-                </div>
-                <div id="instagram-loading" class="instagram-loading hidden">
+                <!-- RSS App Widget Implementation -->
+                <rssapp-wall id="HgUaLbOAq0euMqEn" data-width="100%" data-height="auto" data-theme="light" data-responsive="true"></rssapp-wall>
+                <div id="instagram-loading" class="instagram-loading">
                     <p><i class="fas fa-spinner fa-spin"></i> Loading Instagram feed...</p>
                 </div>
                 <div id="instagram-error" class="instagram-error hidden">
