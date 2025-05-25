@@ -30,8 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (timeInput) {
             const nextHour = today.getHours() + 1;
             const formattedHour = nextHour.toString().padStart(2, '0') + ':00';
-            timeInput.min = '09:00';
-            timeInput.max = '18:00';
+            // No time restrictions - allow bookings at any time
             timeInput.value = formattedHour;
         }
     }
@@ -144,11 +143,17 @@ document.addEventListener('DOMContentLoaded', function() {
             const submitBtn = consultationForm.querySelector('button[type="submit"]');
             if (submitBtn) {
                 submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-                submitBtn.disabled = true;
+                // Don't disable the button as it can prevent form submission
+                // submitBtn.disabled = true;
             }
             
             // Let the form submit naturally to FormSubmit.co
             // FormSubmit will handle the email delivery and redirect to thank-you.html
+            // Set a timeout to ensure the form submits even if something else is blocking
+            setTimeout(function() {
+                // Force form submission after a slight delay
+                consultationForm.submit();
+            }, 500);
         });
     }
 });
