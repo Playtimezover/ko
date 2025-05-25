@@ -1586,13 +1586,149 @@ rssapp-wall {
 }
 
 /* Instagram Feed Improvements */
+.instagram-section {
+    margin: 40px 0;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 .instagram-feed {
     margin: 40px 0;
     text-align: center;
+    overflow: hidden;
+    max-width: 100%;
+    padding: 0 10px;
 }
 
 .instagram-feed h2 {
     margin-bottom: 30px;
+}
+
+/* RSS App Wall Custom Styling */
+rssapp-wall {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    overflow: hidden !important;
+}
+
+rssapp-wall * {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Fix RSS App container on mobile */
+.ra-wall {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+}
+
+/* Fix RSS App grid layout */
+.ra-grid {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+}
+
+/* Force responsive layout on mobile */
+@media (max-width: 576px) {
+    .ra-wall[data-columns="3"] .ra-grid,
+    .ra-wall[data-columns="4"] .ra-grid,
+    .ra-wall[data-columns="5"] .ra-grid,
+    .ra-wall[data-columns="6"] .ra-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+/* Fix RSS App posts on mobile */
+.ra-post {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 5px !important;
+    box-sizing: border-box !important;
+}
+
+/* Fix RSS App image containers */
+.ra-post-image {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+/* Fix caption overflow issues */
+.ra-post-caption {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-wrap: break-word !important;
+    word-wrap: break-word !important;
+}
+
+/* Fix for RSS App footer */
+.ra-footer {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    text-align: center !important;
+    margin: 10px auto !important;
+    font-size: 12px !important;
+}
+
+/* Fix RSS App link styling */
+.ra-post a,
+.ra-footer a {
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+/* Fix RSS App post content */
+.ra-post-content {
+    padding: 10px !important;
+    text-align: left !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Make Instagram feed load more gracefully */
+.instagram-section rssapp-wall:not(.loaded) {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.instagram-section rssapp-wall.loaded {
+    opacity: 1;
+}
+
+/* Fix Instagram loading indicator */
+#instagram-loading.hidden,
+#instagram-error.hidden {
+    display: none !important;
+}
+
+@media (min-width: 576px) {
+    .ra-post {
+        width: calc(50% - 10px) !important;
+        max-width: calc(50% - 10px) !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .ra-post {
+        width: calc(33.333% - 10px) !important;
+        max-width: calc(33.333% - 10px) !important;
+    }
 }
 
 .instagram-grid {

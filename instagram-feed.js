@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Get the loading indicator and error message elements
     const loadingElement = document.getElementById('instagram-loading');
     const errorElement = document.getElementById('instagram-error');
+    const rssappWall = document.querySelector('rssapp-wall');
     
     // Function to check if RSS App is loaded
     function checkRssAppLoaded() {
@@ -85,6 +86,25 @@ document.addEventListener('DOMContentLoaded', function() {
             // Hide error message
             if (errorElement) {
                 errorElement.classList.add('hidden');
+            }
+            
+            // Mark as loaded for CSS transitions
+            if (rssappWall) {
+                // Use MutationObserver to detect when content is loaded
+                const observer = new MutationObserver(function(mutations) {
+                    const hasContent = rssappWall.querySelector('.ra-post');
+                    if (hasContent) {
+                        rssappWall.classList.add('loaded');
+                        observer.disconnect();
+                    }
+                });
+                
+                observer.observe(rssappWall, { childList: true, subtree: true });
+                
+                // Fallback - add loaded class after a timeout
+                setTimeout(function() {
+                    rssappWall.classList.add('loaded');
+                }, 3000);
             }
         } catch (error) {
             console.error('Error initializing Instagram feed:', error);
