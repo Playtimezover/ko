@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | KO Savant</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/3b161c540c.js" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    <style>
+        .policy-container {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 40px;
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .policy-container h1 {
+            margin-bottom: 30px;
+            color: var(--heading-color);
+            text-align: center;
+        }
+        
+        .policy-container h2 {
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .policy-container p, .policy-container ul {
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        
+        .policy-container ul {
+            padding-left: 20px;
+        }
+        
+        .policy-container ul li {
+            margin-bottom: 10px;
+        }
+        
+        .back-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 20px;
+            background-color: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-toggle">
+        <button id="theme-toggle-btn" class="theme-toggle-btn">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+
+    <div class="container">
+        <div class="policy-container">
+            <h1>Privacy Policy</h1>
+            
+            <p>Last updated: May 24, 2025</p>
+            
+            <p>This Privacy Policy describes how KO Savant ("we", "us", or "our") collects, uses, and discloses your personal information when you visit our website or use our services.</p>
+            
+            <h2>Information We Collect</h2>
+            
+            <p>When you visit our website or use our services, we may collect certain information about your device, your interaction with the website, and information necessary to process your bookings. We may also collect additional information if you contact us for customer support. In this Privacy Policy, we refer to any information that can uniquely identify an individual as "Personal Information".</p>
+            
+            <h2>Information We Collect</h2>
+            
+            <ul>
+                <li><strong>Personal Information:</strong> Name, email address, phone number, and booking preferences.</li>
+                <li><strong>Usage Data:</strong> Information about how you use our website, such as the pages you visit, the time and date of your visit, and the time spent on those pages.</li>
+                <li><strong>Device Data:</strong> Information about the device you use to access our website, including the hardware model, operating system, unique device identifiers, and mobile network information.</li>
+            </ul>
+            
+            <h2>How We Use Your Information</h2>
+            
+            <p>We use the information we collect in various ways, including to:</p>
+            
+            <ul>
+                <li>Provide, operate, and maintain our website</li>
+                <li>Improve, personalize, and expand our website</li>
+                <li>Understand and analyze how you use our website</li>
+                <li>Develop new products, services, features, and functionality</li>
+                <li>Process and manage your bookings</li>
+                <li>Communicate with you, either directly or through one of our partners, for customer service, updates, and other information relating to the website</li>
+                <li>Send you emails</li>
+                <li>Find and prevent fraud</li>
+            </ul>
+            
+            <h2>Cookies and Tracking Technologies</h2>
+            
+            <p>We use cookies and similar tracking technologies to track the activity on our website and hold certain information. Cookies are files with a small amount of data which may include an anonymous unique identifier. You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent.</p>
+            
+            <h2>GDPR Privacy Rights</h2>
+            
+            <p>If you are a resident of the European Economic Area (EEA), you have certain data protection rights. We aim to take reasonable steps to allow you to correct, amend, delete, or limit the use of your Personal Information.</p>
+            
+            <p>If you wish to be informed what Personal Information we hold about you and if you want it to be removed from our systems, please contact us.</p>
+            
+            <h2>Contact Us</h2>
+            
+            <p>If you have any questions about this Privacy Policy, please contact us at contact@kosavant.com.</p>
+            
+            <a href="index.html" class="back-button"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        </div>
+    </div>
+    
+    <script>
+        // Theme toggle functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle-btn');
+            
+            // Check for saved theme preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.setAttribute('data-theme', 'dark');
+                themeToggle.classList.add('dark-mode');
+            }
+            
+            // Add toggle event
+            themeToggle.addEventListener('click', () => {
+                if (document.body.getAttribute('data-theme') === 'dark') {
+                    document.body.removeAttribute('data-theme');
+                    localStorage.setItem('theme', 'light');
+                    themeToggle.classList.remove('dark-mode');
+                } else {
+                    document.body.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                    themeToggle.classList.add('dark-mode');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
