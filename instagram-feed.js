@@ -47,3 +47,62 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+
+// Initialize Instagram feed with RSS App
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Instagram feed script loaded');
+    
+    // Get the loading indicator and error message elements
+    const loadingElement = document.getElementById('instagram-loading');
+    const errorElement = document.getElementById('instagram-error');
+    
+    // Function to check if RSS App is loaded
+    function checkRssAppLoaded() {
+        console.log('Checking if RSS App is loaded...');
+        
+        // If rssapp is not defined, wait and try again (up to 10 attempts)
+        if (typeof rssapp === 'undefined') {
+            if (window.rssAppAttempts > 10) {
+                console.error('RSS App failed to load after multiple attempts');
+                showError();
+                return;
+            }
+            
+            window.rssAppAttempts = (window.rssAppAttempts || 0) + 1;
+            console.log('RSS App not loaded yet, retrying... (attempt ' + window.rssAppAttempts + ')');
+            setTimeout(checkRssAppLoaded, 1000);
+            return;
+        }
+        
+        console.log('RSS App loaded successfully!');
+        
+        try {
+            // Hide loading indicator
+            if (loadingElement) {
+                loadingElement.classList.add('hidden');
+            }
+            
+            // Hide error message
+            if (errorElement) {
+                errorElement.classList.add('hidden');
+            }
+        } catch (error) {
+            console.error('Error initializing Instagram feed:', error);
+            showError();
+        }
+    }
+    
+    // Function to show error message
+    function showError() {
+        if (loadingElement) {
+            loadingElement.classList.add('hidden');
+        }
+        
+        if (errorElement) {
+            errorElement.classList.remove('hidden');
+        }
+    }
+    
+    // Check if RSS App script is loaded
+    checkRssAppLoaded();
+});
