@@ -1,30 +1,27 @@
 // Email Service for KO Savant website
 // Uses EmailJS to send form submissions to contact@kosavant.com
 
-// Initialize EmailJS
-(function() {
-    // Public Key from EmailJS account
-    emailjs.init({
-      publicKey: "nOl9RTXY9KPHkOyLyTyH3",
-    });
-})();
+// Initialize EmailJS with the user ID
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize with your EmailJS User ID
+    emailjs.init('nOl9RTXY9KPHkOyLyTyH3');
+});
 
 // Function to send email when booking is made
 function sendBookingEmail(formData) {
-    return emailjs.send(
-        "service_5dku7y9", // Service ID from EmailJS
-        "template_0xdvlwm", // Template ID from EmailJS
-        {
-            name: formData.name,
-            email: formData.email,
-            date: formData.date,
-            time: formData.time,
-            service: formData.service,
-            message: formData.message || "No additional message",
-            to_email: "contact@kosavant.com"
-        },
-        "nOl9RTXY9KPHkOyLyTyH3" // Public Key
-    );
+    // Create template parameters
+    const templateParams = {
+        name: formData.name || '',
+        email: formData.email || '',
+        date: formData.date || '',
+        time: formData.time || '',
+        service: formData.service || '',
+        message: formData.message || 'No additional message',
+        to_email: 'contact@kosavant.com'
+    };
+    
+    // Use the simpler send method with just service ID and template ID
+    return emailjs.send('service_5dku7y9', 'template_0xdvlwm', templateParams);
 }
 
 // Function to format form data for email

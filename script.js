@@ -140,37 +140,39 @@ document.addEventListener('DOMContentLoaded', function() {
                 submitBtn.disabled = true;
                 submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
                 
-                // Format form data for email
-                const formData = formatBookingData ? formatBookingData(consultationForm) : new FormData(consultationForm);
+                // Direct EmailJS implementation
+                const serviceID = 'service_5dku7y9';
+                const templateID = 'template_0xdvlwm';
                 
-                // Send email notification
-                if (typeof sendBookingEmail === 'function') {
-                    sendBookingEmail(formData)
-                        .then(function(response) {
-                            console.log('Email sent successfully:', response);
-                            // Show success message and hide form
-                            if (formSuccess) formSuccess.classList.remove('hidden');
-                            if (bookingForm) bookingForm.classList.add('hidden');
-                            consultationForm.reset();
-                        })
-                        .catch(function(error) {
-                            console.error('Email sending failed:', error);
-                            alert('There was an error submitting your booking. Please try again or contact us directly.');
-                        })
-                        .finally(function() {
-                            // Restore button state
-                            submitBtn.disabled = false;
-                            submitBtn.innerHTML = originalButtonText;
-                        });
-                } else {
-                    // Fallback if email service isn't available
-                    console.warn('Email service not available, showing success message anyway');
-                    if (formSuccess) formSuccess.classList.remove('hidden');
-                    if (bookingForm) bookingForm.classList.add('hidden');
-                    consultationForm.reset();
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = originalButtonText;
-                }
+                // Prepare template parameters from form data
+                const templateParams = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    date: document.getElementById('date').value,
+                    time: document.getElementById('time').value,
+                    service: document.getElementById('service').value,
+                    message: document.getElementById('message').value || 'No additional message',
+                    to_email: 'contact@kosavant.com'
+                };
+                
+                // Send the email directly with EmailJS
+                emailjs.send(serviceID, templateID, templateParams)
+                    .then(function(response) {
+                        console.log('SUCCESS!', response.status, response.text);
+                        // Show success message and hide form
+                        if (formSuccess) formSuccess.classList.remove('hidden');
+                        if (bookingForm) bookingForm.classList.add('hidden');
+                        consultationForm.reset();
+                    })
+                    .catch(function(error) {
+                        console.error('FAILED...', error);
+                        alert('There was an error submitting your booking. Please try again or contact us directly at contact@kosavant.com');
+                    })
+                    .finally(function() {
+                        // Restore button state
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalButtonText;
+                    });
             }
         });
     }
