@@ -1,6 +1,238 @@
-git add .
-git commit -m "Fix Instagram feed with new RSS App widget"
-git push origin main                    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KO Savant | Official Links</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Connect with KO Savant - Business mentor, fashion entrepreneur, and consultant. Book consultations, shop PlayTimezOver clothing, and more.">
+    <meta name="keywords" content="KO Savant, fashion, business, consultant, PlayTimezOver, clothing, brand">
+    <meta name="author" content="KO Savant">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="index.html" />
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kosavant.com/">
+    <meta property="og:title" content="KO Savant | Official Links">
+    <meta property="og:description" content="Connect with KO Savant - Business mentor, fashion entrepreneur, and consultant. Book consultations, shop PlayTimezOver clothing, and more.">
+    <meta property="og:image" content="images/og-image.jpg">
+    <meta property="twitter:card" content="summary_large_image">
+    
+    <!-- Styles and Fonts -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons and Favicon -->
+    <script src="https://kit.fontawesome.com/3b161c540c.js" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    
+    <!-- EmailJS for Form Submission -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
+    <!-- Instagram Feed Widget -->
+    <script src="https://widget.rss.app/v1/wall.js" type="text/javascript" async></script>
+    
+    <!-- Accessibility -->
+    <meta name="theme-color" content="#000000">
+</head>
+<body>
+    <div class="theme-toggle">
+        <button id="theme-toggle-btn" class="theme-toggle-btn">
+            <i class="fas fa-sun"></i>
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+
+    <div class="container">
+        <div class="profile">
+            <div class="profile-img-wrapper">
+                <img src="images/logo.svg" alt="KO Savant Logo" class="profile-img">
+                <div class="status-badge">Available</div>
+            </div>
+            <h1>KO Savant</h1>
+            <p class="tagline">Business & Fashion</p>
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-value">5+</span>
+                    <span class="stat-label">Years Experience</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">100+</span>
+                    <span class="stat-label">Clients</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">9.8</span>
+                    <span class="stat-label">Rating</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="links">
+            <a href="https://www.instagram.com/k.o._savant" class="link instagram" target="_blank">
+                <i class="fab fa-instagram"></i>
+                <span>Instagram</span>
+                <span class="username">@k.o._savant</span>
+            </a>
+            
+            <a href="https://playtimezoverclothing.com/" class="link website" target="_blank">
+                <i class="fas fa-tshirt"></i>
+                <span>PlayTimezOver Clothing</span>
+                <span class="subtitle">Official Store</span>
+            </a>
+            
+            <a href="mailto:contact@kosavant.com" class="link email">
+                <i class="fas fa-envelope"></i>
+                <span>Email</span>
+                <span class="subtitle">contact@kosavant.com</span>
+            </a>
+
+            <a href="https://cash.app/$MoneySavant" class="link cashapp" target="_blank">
+                <i class="fab fa-cash-app"></i>
+                <span>Cash App</span>
+                <span class="subtitle">$MoneySavant</span>
+            </a>
+
+            <a href="#" class="link booking" id="booking-link">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Book a Consultation</span>
+                <span class="subtitle">Fashion & Business Advice</span>
+            </a>
+        </div>
+
+        <div id="booking-form" class="booking-form hidden">
+            <div class="booking-header">
+                <h2><i class="fas fa-calendar-check"></i> Book a Consultation</h2>
+                <p class="booking-subtitle">Schedule a one-on-one session with KO Savant</p>
+            </div>
+            <form id="consultation-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name"><i class="fas fa-user"></i> Full Name</label>
+                        <input type="text" id="name" name="name" placeholder="Your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email"><i class="fas fa-envelope"></i> Email</label>
+                        <input type="email" id="email" name="email" placeholder="Your email address" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="date"><i class="fas fa-calendar"></i> Preferred Date</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="time"><i class="fas fa-clock"></i> Preferred Time</label>
+                        <input type="time" id="time" name="time" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="service"><i class="fas fa-tag"></i> Service Type</label>
+                    <select id="service" name="service" required>
+                        <option value="" disabled selected>Select a service</option>
+                        <option value="fashion">Fashion Consultation</option>
+                        <option value="business">Business Advice</option>
+                        <option value="branding">Personal Branding</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message"><i class="fas fa-comment"></i> Your Message</label>
+                    <textarea id="message" name="message" rows="3" placeholder="Tell us what you'd like to discuss"></textarea>
+                </div>
+                
+                <div class="form-buttons">
+                    <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> Submit Request</button>
+                    <button type="button" class="cancel-btn" id="cancel-booking"><i class="fas fa-times"></i> Cancel</button>
+                </div>
+            </form>
+            <div id="form-success" class="form-success hidden">
+                <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+                <h3>Booking Request Sent!</h3>
+                <p>Thank you for your interest. We'll contact you shortly to confirm your appointment.</p>
+                <button id="close-success" class="close-success-btn">Close</button>
+            </div>
+        </div>
+
+        <div class="spotlight-wrapper">
+            <div class="spotlight-heading">
+                <h2>PlayTimezOver</h2>
+                <div class="brand-tag">Official Clothing Line</div>
+            </div>
+            
+            <div class="spotlight">
+                <div class="spotlight-image">
+                    <img src="images/KO-savant-photo.jpg" alt="KO Savant">
+                </div>
+                <div class="spotlight-content">
+                    <div class="spotlight-badge">Premium</div>
+                    <h3>Elevate Your Style</h3>
+                    <p>Exclusive streetwear crafted for those who refuse to compromise. Bold designs that make a statement.</p>
+                    <a href="https://playtimezoverclothing.com/" class="spotlight-button" target="_blank">Shop Collection <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-heading">
+            <h2>Client Testimonials</h2>
+            <p>What people are saying</p>
+        </div>
+
+        <div class="testimonials">
+            <div class="testimonial">
+                <div class="testimonial-header">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="testimonial-date">April 2025</div>
+                </div>
+                <div class="testimonial-content">
+                    <i class="fas fa-quote-left"></i>
+                    <p>KO Savant's business mentorship was transformative for my startup. His strategic insights and industry connections helped us secure key partnerships that doubled our growth in just 3 months.</p>
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-image">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="James Wilson">
+                    </div>
+                    <div class="author-info">
+                        <span class="author-name">James Wilson</span>
+                        <span class="author-title">Founder & CEO, TechStyle Ventures</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial">
+                <div class="testimonial-header">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="testimonial-date">March 2025</div>
+                </div>
+                <div class="testimonial-content">
+                    <i class="fas fa-quote-left"></i>
+                    <p>Working with KO Savant elevated my brand to new heights. His fashion expertise and attention to detail completely transformed my collection. The results speak for themselves—sales are up 70% since our collaboration!</p>
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-image">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Melissa Rodriguez">
+                    </div>
+                    <div class="author-info">
+                        <span class="author-name">Michelle Kim</span>
+                        <span class="author-title">Fashion Designer & Creative Director</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -19,14 +251,8 @@ git push origin main                    </div>
         <div class="instagram-section">
             <h2>@k.o._savant <i class="fab fa-instagram"></i></h2>
             <div class="instagram-feed">
-                <!-- RSS App Widget Implementation -->
-                <rssapp-wall id="HgUaLbOAq0euMqEn" data-width="100%" data-height="auto" data-theme="light" data-responsive="true"></rssapp-wall>
-                <div id="instagram-loading" class="instagram-loading">
-                    <p><i class="fas fa-spinner fa-spin"></i> Loading Instagram feed...</p>
-                </div>
-                <div id="instagram-error" class="instagram-error hidden">
-                    <p>Unable to load Instagram feed. Please <a href="https://www.instagram.com/k.o._savant" target="_blank">visit our Instagram page</a> instead.</p>
-                </div>
+                <!-- Direct RSS App Widget Implementation -->
+                <rssapp-wall id="Ufg4OYRpC9uMbxjy"></rssapp-wall>
             </div>
             <a href="https://www.instagram.com/k.o._savant" class="instagram-follow-btn" target="_blank">
                 Follow on Instagram
@@ -40,10 +266,9 @@ git push origin main                    </div>
 
     <!-- RSS App Script for Instagram Feed -->
     <script src="https://widget.rssapp.io/v1/wall.js" type="text/javascript"></script>
+    <script src="email-service.js"></script>
     <script src="script.js"></script>
     <script src="enhancements.js"></script>
     <script src="instagram-feed.js"></script>
-    <script src="instagram-fallback.js"></script>
-    <script src="booking.js"></script>
 </body>
 </html>
